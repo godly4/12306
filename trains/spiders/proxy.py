@@ -17,10 +17,11 @@ def checkIp(ipList):
         if proxyIp:
             proxies = {'http': 'http://{0}'.format(proxyIp)}
             try:
-                r = requests.get('http://www.baidu.com', timeout=3, proxies=proxies)
+                r = requests.get("http://icanhazip.com/", timeout=3, proxies=proxies)
                 if r.status_code == 200:
-                    redisClient.rpush('PROXY_IPS',proxyIp)
-                    print proxyIp
+                    print proxyIp, r.text, r.text.strip() == proxyIp.split(':')[0]
+                    if r.text.strip() == proxyIp.split(':')[0]:
+                        redisClient.rpush('PROXY_IPS',proxyIp)
             except:
                 pass
 
