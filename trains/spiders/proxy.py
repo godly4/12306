@@ -19,7 +19,7 @@ def checkIp(ipList):
             try:
                 r = requests.get("http://icanhazip.com/", timeout=3, proxies=proxies)
                 if r.status_code == 200:
-                    print proxyIp, r.text, r.text.strip() == proxyIp.split(':')[0]
+                    print proxyIp, r.text.strip() == proxyIp.split(':')[0]
                     if r.text.strip() == proxyIp.split(':')[0]:
                         redisClient.rpush('PROXY_IPS',proxyIp)
             except:

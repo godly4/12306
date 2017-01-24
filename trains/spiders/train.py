@@ -53,8 +53,8 @@ class ProxySpider(CrawlSpider):
             TrainItem["ch_name"] = chName
             TrainItem["name"] = enName
             url_station = "http://search.huochepiao.com/chezhan/{0}".format(enName)
-            yield Request(url=url_station, meta={"item": TrainItem, "proxy": getIp()}, callback=self.parseStation)
-            #yield Request(url=url_station, meta={"item": TrainItem}, callback=self.parseStation)
+            #yield Request(url=url_station, meta={"item": TrainItem, "proxy": getIp()}, callback=self.parseStation)
+            yield Request(url=url_station, meta={"item": TrainItem}, callback=self.parseStation)
             index_ch += 5
             index_en += 5
 
@@ -64,8 +64,8 @@ class ProxySpider(CrawlSpider):
         for train in trains:
             trainNum = train.xpath('b/text()').extract_first()
             url_train = "http://search.huochepiao.com/checi/{0}".format(trainNum)
-            yield Request(url=url_train, meta={"item": TrainItem, "proxy": response.meta["proxy"], "num": trainNum}, callback=self.parseTrain)
-            #yield Request(url=url_train, meta={"item": TrainItem, "num": trainNum}, callback=self.parseTrain)
+            #yield Request(url=url_train, meta={"item": TrainItem, "proxy": response.meta["proxy"], "num": trainNum}, callback=self.parseTrain)
+            yield Request(url=url_train, meta={"item": TrainItem, "num": trainNum}, callback=self.parseTrain)
 
     def parseTrain(self, response):
         TrainItem = response.meta["item"]
