@@ -2,7 +2,6 @@
 
 import random
 from useragents import agents 
-from proxy import proxies
 
 class TrainsUaMiddleware(object):
     """change agent"""
@@ -10,10 +9,3 @@ class TrainsUaMiddleware(object):
     def process_request(self, request, spider):
         agent = random.choice(agents)
         request.headers["User-Agent"] = agent
-
-class TrainsProxyMiddleware(object):
-    """change prxoy"""
-
-    def process_request(self, request, spider):
-        proxy = random.choice(proxies)
-        request.meta["proxy"] = proxy
